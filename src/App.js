@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
 
-function App() {
+const App = () => {
+    const [hori, setHori] = useState(0);
+    const [veri, setVeri] = useState(0);
+    const [blur, setBlur] = useState(0);
+    const [color, setColor] = useState("black");
+    const [checkon, setcheckon] = useState(false)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+        <div className="controls">
+            <div>
+            <label >Horizontal Length</label>
+            <input type="range" min="-200" max="200" value={hori} onChange={(e)=>setHori(e.target.value)} />
+            </div>
+
+            <div>
+            <label >Vertical Length</label>
+            <input type="range" min="-200" max="200" value={veri} onChange={(e)=>setVeri(e.target.value)} />
+            </div>
+            <div>
+            <label >Blur</label>
+            <input type="range" min="0" max="200" value={blur} onChange={(e)=>setBlur(e.target.value)} />
+            </div>
+            <div className="switch">
+                <label >Outline
+                <input type="checkbox" checked={checkon} onChange={()=>setcheckon(!checkon)} />
+                <span className="lever"></span>
+                inset
+                </label>
+            </div>
+
+            <label >Color</label>
+            <input type="color" value={color} onChange={(e)=>setColor(e.target.value)} />
+
+        </div>
+        <div className="output">
+            <div className="box" style={{boxShadow:`${checkon ? "inset" : ""} ${hori}px ${veri}px ${blur}px ${color}`}}>
+                <p>Box-Shadow: {hori}px {veri}px {blur}px {color}</p>
+            </div>
+        </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
